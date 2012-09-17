@@ -1,0 +1,4 @@
+[Project]
+Name=CityTraffic
+Manager=KDevCMakeManager
+VersionControl=kdevgit
