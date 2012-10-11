@@ -1,12 +1,12 @@
 #include "Tile.h"
 
-Tile::Tile(App* mainGame, int initX, int initY)
+Tile::Tile(SDL_Surface* surf_Display, SDL_Surface* surf_tiles, int initX, int initY)
 {
     
     type = TT_NONE;
     
-    mainDisplay = mainGame->GetDisplay();
-    tileSheet = mainGame->GetTileSheet(type);
+    mainDisplay = surf_Display;
+    tileSheet = surf_tiles;
     
     X = initX;
     Y = initY;
@@ -15,16 +15,4 @@ Tile::Tile(App* mainGame, int initX, int initY)
 Tile::~Tile()
 {
 
-}
-
-void Tile::OnUpdate()
-{
-    //Pure Virtual
-}
-
-void Tile::OnRender()
-{
-
-    //NOTE: Could possible have 'empty' tiles render as just a green block, like a park or forest or something.
-    //Pure Virtual
 }

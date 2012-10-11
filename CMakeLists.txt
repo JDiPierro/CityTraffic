@@ -16,9 +16,12 @@ set(SOURCES
 	./app/App_OnInit.cpp
 	./app/App_OnRender.cpp
 	./app/App_OnUpdate.cpp
+	./app/App_OnExitCleanup.cpp
 	
-	./world/City.cpp
+	./app/Surface.cpp
+	
 	./world/Tile.cpp
+	./world/City.cpp
 	./world/RoadSegment.cpp
 )
 

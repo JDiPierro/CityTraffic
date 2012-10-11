@@ -12,28 +12,31 @@
 #include "../app/App.h"
 #include "Tile.h"
 #include "../entities/Entity.h"
-#include "Building.h"
+
+//Forward Declaration so the compiler stops pissing me off.
+class Tile;
 
 class City
 {
     /* UTIL */
     std::vector<Entity*> EntityList;
-    std::vector<Building*> BuildingList;
+    //std::vector<Building*> BuildingList;
     
     /* MEMBERS */
 public:
     
     //TODO: Eventually change these to non-static.
-    static const int MAX_X = 40;
-    static const int MAX_Y = 20;
+    static const int MAX_X = 25;
+    static const int MAX_Y = 18;
     Tile* Tiles[MAX_X][MAX_Y];
     
 private:
-    Game* mainGame;
+    SDL_Surface* mainDisplay;
+    SDL_Surface* roadTiles;
 
     /* CONSTRUCTORS */
 public:
-    City(Game* gamePtr);
+    City(SDL_Surface* surf_Display, SDL_Surface* surf_RoadTiles);
     ~City();
     
     /* METHODS */
@@ -42,7 +45,7 @@ public:
     void OnUpdate();
     void OnRender();
     
-    void AddBuilding(Building* bld);
+    //void AddBuilding(Building* bld);
     Tile* GetTile(int x, int y);
 };
 

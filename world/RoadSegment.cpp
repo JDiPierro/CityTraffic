@@ -1,42 +1,50 @@
 #include "RoadSegment.h"
 #include "City.h"
-#include <../Gradius/app/Surface.h>
+#include "../app/Surface.h"
 
-RoadSegment::RoadSegment(Game* mainGame, int myX, int myY):
-	Tile(mainGame, myX, myY)
+RoadSegment::RoadSegment(SDL_Surface* mainDisplay, SDL_Surface* myTiles, City* whatCity, int myX, int myY):
+	Tile(mainDisplay,myTiles, myX, myY)
 {
     type = TT_ROAD;
     
-    tileSheet = mainGame->GetTileSheet(type);
-    
     connections = 0;
     
+    myCity = whatCity;
+}
+
+RoadSegment::~RoadSegment()
+{
+    //
+}
+
+void RoadSegment::InitRoad()
+{
     //Test what connections we have.
-    if(whatCity->GetTile(X - 1,Y) != nullptr && whatCity->GetTile(X - 1,Y)->type == TILE_TYPE::TT_ROAD)
+    if(myCity->GetTile(X - 1,Y) != NULL && myCity->GetTile(X - 1,Y)->type == TT_ROAD)
     {
-	connections += ROAD_CONNECTIONS::LEFT;
+	connections += LEFT;
     }
-    if(whatCity->GetTile(X + 1,Y) != nullptr && whatCity->GetTile(X + 1,Y)->type == TILE_TYPE::TT_ROAD)
+    if(myCity->GetTile(X + 1,Y) != NULL && myCity->GetTile(X + 1,Y)->type == TT_ROAD)
     {
-	connections += ROAD_CONNECTIONS::RIGHT;
+	connections += RIGHT;
     }
-    if(whatCity->GetTile(X,Y - 1) != nullptr && whatCity->GetTile(X,Y - 1)->type == TILE_TYPE::TT_ROAD)
+    if(myCity->GetTile(X,Y - 1) != NULL && myCity->GetTile(X,Y - 1)->type == TT_ROAD)
     {
-	connections += ROAD_CONNECTIONS::UP;
+	connections += UP;
     }
-    if(whatCity->GetTile(X,Y + 1) != nullptr && whatCity->GetTile(X,Y + 1)->type == TILE_TYPE::TT_ROAD)
+    if(myCity->GetTile(X,Y + 1) != NULL && myCity->GetTile(X,Y + 1)->type == TT_ROAD)
     {
-	connections += ROAD_CONNECTIONS::DOWN;
+	connections += DOWN;
     }
     
     //Figure out what tile we should have.
-    if(connections & ROAD_CONNECTIONS::LEFT)
+    if(connections & LEFT)
     {
-	if(connections & ROAD_CONNECTIONS::RIGHT)
+	if(connections & RIGHT)
 	{
-	    if(connections & ROAD_CONNECTIONS::UP)
+	    if(connections & UP)
 	    {
-		if(connections & ROAD_CONNECTIONS::DOWN)
+		if(connections & DOWN)
 		{
 		    //4-way
 		    tileX = 1;
@@ -50,7 +58,7 @@ RoadSegment::RoadSegment(Game* mainGame, int myX, int myY):
 		    
 		}
 	    }
-	    else if(connections & ROAD_CONNECTIONS::DOWN)
+	    else if(connections & DOWN)
 	    {
 		//3-way Left, Right, Down
 		tileX = 3;
@@ -63,9 +71,9 @@ RoadSegment::RoadSegment(Game* mainGame, int myX, int myY):
 		tileY = 3;
 	    }
 	}
-	else if(connections & ROAD_CONNECTIONS::DOWN)
+	else if(connections & DOWN)
 	{
-	    if(connections & ROAD_CONNECTIONS::UP)
+	    if(connections & UP)
 	    {
 		//3-way Left, Down, Up
 		tileX = 3;
@@ -78,18 +86,18 @@ RoadSegment::RoadSegment(Game* mainGame, int myX, int myY):
 		tileY = 1;
 	    }
 	}
-	else if(connections & ROAD_CONNECTIONS::UP)
+	else if(connections & UP)
 	{
 	    //Left, Up turn.
 	    tileX = 2;
 	    tileY = 2;
 	}
     }
-    else if(connections & ROAD_CONNECTIONS::RIGHT)
+    else if(connections & RIGHT)
     {
-	if(connections & ROAD_CONNECTIONS::UP)
+	if(connections & UP)
 	{
-	    if(connections & ROAD_CONNECTIONS::DOWN)
+	    if(connections & DOWN)
 	    {
 		//3-way Up, Down, Right
 		tileX = 3;
@@ -117,11 +125,6 @@ RoadSegment::RoadSegment(Game* mainGame, int myX, int myY):
     }
 }
 
-RoadSegment::~RoadSegment()
-{
-    //
-}
-
 void RoadSegment::OnUpdate()
 {
     //
@@ -130,5 +133,8 @@ void RoadSegment::OnUpdate()
 void RoadSegment::OnRender()
 {
     //Surface::OnDraw(Surf_Display,Surf_Entity,X,Y,0,Anim_Control.GetCurrentFrame() * Height,Width,Height);
-    Surface::OnDraw(mainDisplay,tileSheet,X * tileSize,Y * tileSize,tileX * tileSize,tileY * tileSize,tileSize,tileSize);
+    Surface::OnDraw(mainDisplay,tileSheet,
+		    (X * tileSize),(Y * tileSize),
+		    (tileX * tileSize)-tileSize,(tileY * tileSize)-tileSize,
+		    tileSize,tileSize);
 }

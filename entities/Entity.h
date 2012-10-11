@@ -22,19 +22,19 @@ private:
     
     /* CONSTRUCTORS */
 public:
-    Entity();
-    ~Entity();
+    Entity() {};
+    ~Entity() {};
     
     /* METHODS */
 public:
     
-    void OnUpdate();
-    void OnRender();
-    void OnMove();
+    void OnUpdate() {};
+    void OnRender() {};
+    void OnMove() {};
     
-    void Collides(Entity* atFault); //Because it's never your fault.
+    void Collides(Entity* atFault) {}; //Because it's never your fault.
     
-    bool CheckCarCrash(Entity* opp);
+    bool CheckCarCrash(Entity* opp) {};
     //bool CheckBldCrash(Building* bld);
 };
 

@@ -1,4 +1,5 @@
 #include "App.h"
+#include "Surface.h"
 
 Game::Game()
 {
@@ -36,6 +37,16 @@ void Game::OnExecute()
     exit(0);
 }
 
+void Game::OnEvent(SDL_Event* event)
+{
+    Event::OnEvent(event);
+}
+/*
+SDL_Surface* Game::GetDisplay()
+{
+    return Surf_Display;
+}
+*/
 int main(int argc, char* argv[])
 {
     Game gameApp;

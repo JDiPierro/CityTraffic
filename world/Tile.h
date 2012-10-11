@@ -19,13 +19,13 @@ public:
 	TT_BUILDING = 2
     };
     //Size, in pixels, of each tile. They're square, so only 1 side is needed.
-    static const int tileSize = 15;
+    static const int tileSize = 32;
     
     /* MEMBERS */
 public:
     TILE_TYPE type;
     
-private:
+protected:
     int X;	//X in TILES
     int Y;	//Y in
     int tileX, tileY;
@@ -34,7 +34,7 @@ private:
     
     /* CONSTRUCTORS */
 public:
-    Tile(Game* mainGame, int initX, int initY);
+    Tile(SDL_Surface* surf_Display, SDL_Surface* surf_tiles, int initX, int initY);
     ~Tile();
     
     /* METHODS */

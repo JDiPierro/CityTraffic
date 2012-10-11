@@ -10,12 +10,12 @@ class RoadSegment : public Tile
     /* UTIL */
 public:
     //This will be used in the constructor to decide what road tile to use.
-    static enum ROAD_CONNECTIONS
+    enum ROAD_CONNECTIONS
     {
-	LEFT	= 0x00,
-	RIGHT	= 0x01,
-	UP	= 0x02,
-	DOWN	= 0x04
+	LEFT	= 0x01,
+	RIGHT	= 0x02,
+	UP	= 0x04,
+	DOWN	= 0x08
     };
     
 
@@ -24,17 +24,18 @@ public:
     
 private:
     unsigned short connections;
+    City* myCity;
 
     /* CONSTRUCTORS */
 public:
-    RoadSegment(Game* mainGame, int myX, int myY);
+    RoadSegment(SDL_Surface* surf_Display, SDL_Surface* surf_RoadTiles, City* whatCity, int myX, int myY);
     ~RoadSegment();
     
     /* METHODS */
 public:
     void OnUpdate();
     void OnRender();
-    
+    void InitRoad();
     
 };
 

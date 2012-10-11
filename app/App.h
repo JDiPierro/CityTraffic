@@ -5,8 +5,9 @@
 #include <iostream>
 
 #include "Event.h"
-#include "../entities/Entity.h"
+#include "Surface.h"
 #include "../world/Tile.h"
+#include "../entities/Entity.h"
 #include "../world/City.h"
 
 class Game : public Event
@@ -30,8 +31,9 @@ public:
     void OnRender();
     void OnEvent(SDL_Event* Event);
     
-    SDL_Surface* GetDisplay() { return Surf_Display; }
-    SDL_Surface* GetTileSheet(Tile::TILE_TYPE type);
+    //SDL_Surface* GetDisplay();
+    
+    //SDL_Surface* GetTileSheet(Tile::TILE_TYPE type);
 };
 
 #endif

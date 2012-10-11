@@ -1,7 +1,7 @@
 #include "App.h"
 #include "../world/City.h"
 
-Game::OnRender()
+void Game::OnRender()
 {
     /**************************************************************************
      * This will eventually be used more, once an FSM is added in to control
@@ -10,4 +10,5 @@ Game::OnRender()
     
     //Draw the Map
     currCity->OnRender();
+    SDL_Flip(Surf_Display);
 }

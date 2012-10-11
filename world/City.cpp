@@ -4,15 +4,32 @@
 #include "RoadSegment.h"
 #include "../entities/Entity.h"
 
-City::City(Game* gamePtr)
+City::City(SDL_Surface* surf_Display, SDL_Surface* surf_RoadTiles)
 {
-    mainGame = gamePtr;
+    mainDisplay = surf_Display;
+    roadTiles = surf_RoadTiles;
     //Populate the array with new tiles.
     for(int i = 0; i < MAX_X; i++)
     {
 	for(int j = 0; j < MAX_Y; j++)
 	{
-	    Tiles[i][j] = new RoadSegment(mainGame, i,j);
+	    
+	    Tiles[i][j] = new RoadSegment(surf_Display,surf_RoadTiles,this, i,j);
+	    
+	    if(rand()%100 > 70)
+	    {
+		Tiles[i][j]->type = Tile::TT_NONE;
+	    }
+	}
+    }
+    
+    //Initialize the road system
+    for(int i = 0; i < MAX_X; i++)
+    {
+	for(int j = 0; j < MAX_Y; j++)
+	{
+	    RoadSegment* currSeg = (RoadSegment*)Tiles[i][j];
+	    currSeg->InitRoad();
 	}
     }
 }
@@ -32,16 +49,17 @@ City::~City()
     {
 	delete EntityList[i];
     }
-    
+    /*
     for(int i = 0 ; i < BuildingList.size(); i++)
     {
 	delete BuildingList[i];
-    }
+    }*/
 }
 
 bool City::OnInit()
 {
     //TODO: This will be used to load City info from a file.
+    return true;
 }
 
 void City::OnUpdate()
@@ -67,7 +85,7 @@ void City::OnRender()
     //Draw Roads.
     for(int i = 0; i < City::MAX_X; i++)
     {
-	for(int j = 0; j < City::MAX_Y; i++)
+	for(int j = 0; j < City::MAX_Y; j++)
 	{
 	    if(Tiles[i][j]->type == Tile::TT_ROAD)
 		Tiles[i][j]->OnRender();
@@ -75,10 +93,11 @@ void City::OnRender()
     }
     
     //Draw buildings:
+    /*
     for(int i = 0 ; i < BuildingList.size(); i++)
     {
 	BuildingList[i]->OnRender();
-    }
+    }*/
     
     //Draw Entities on top of the map.
     for(int i = 0; i < EntityList.size(); i++)
@@ -86,7 +105,7 @@ void City::OnRender()
 	EntityList[i]->OnRender();
     }
 }
-
+/*
 void City::AddBuilding(Building* bld)
 {
     for(int i = bld->GetX(); i < bld->GetX() + bld->GetWidth(); i++)
@@ -98,13 +117,13 @@ void City::AddBuilding(Building* bld)
 	}
     }
 }
-
+*/
 Tile* City::GetTile(int x, int y)
 {
-    if( x < 0 || x > MAX_X)
-	return nullptr;
-    if(y < 0 || y > MAX_Y)
-	return nullptr;
+    if( x < 0 || x >= MAX_X)
+	return NULL;
+    if(y < 0 || y >= MAX_Y)
+	return NULL;
     return Tiles[x][y];
 }
 
