@@ -20,8 +20,9 @@ bool Game::OnInit()
 	return false;
     }
     SDL_Surface* surf_Road = Surface::OnLoad("./gfx/roads.png");
+    SDL_Surface* surf_Park = Surface::OnLoad("./gfx/park.png");
     
-    currCity = new City(Surf_Display,surf_Road);
+    currCity = new City(Surf_Display,surf_Road,surf_Park);
     if(!currCity->OnInit())
     {
 	std::cout << "City Init failed." << std::endl;

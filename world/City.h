@@ -18,9 +18,17 @@ class Tile;
 
 class City
 {
+public:
     /* UTIL */
     std::vector<Entity*> EntityList;
     //std::vector<Building*> BuildingList;
+    
+    enum DIRECTION {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+    };
     
     /* MEMBERS */
 public:
@@ -33,10 +41,11 @@ public:
 private:
     SDL_Surface* mainDisplay;
     SDL_Surface* roadTiles;
+    SDL_Surface* parkTiles;
 
     /* CONSTRUCTORS */
 public:
-    City(SDL_Surface* surf_Display, SDL_Surface* surf_RoadTiles);
+    City(SDL_Surface* surf_Display, SDL_Surface* surf_RoadTiles,SDL_Surface* surf_Park);
     ~City();
     
     /* METHODS */
@@ -45,8 +54,14 @@ public:
     void OnUpdate();
     void OnRender();
     
+    void MakeRoads();
+    
     //void AddBuilding(Building* bld);
     Tile* GetTile(int x, int y);
+    
+private:
+     bool PlaceRoad(std::vector< Tile* >* placed, int x, int y);
+     void RefreshRoads();
 };
 
 #endif

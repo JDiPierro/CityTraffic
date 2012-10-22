@@ -14,9 +14,10 @@ class Tile
 public:
     enum TILE_TYPE
     {
-	TT_NONE = 0,
-	TT_ROAD = 1,
-	TT_BUILDING = 2
+	TT_NONE,
+	TT_ROAD,
+	TT_BUILDING,
+	TT_PARK
     };
     //Size, in pixels, of each tile. They're square, so only 1 side is needed.
     static const int tileSize = 32;

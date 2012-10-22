@@ -31,6 +31,8 @@ public:
     void OnRender();
     void OnEvent(SDL_Event* Event);
     
+    void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
+    
     //SDL_Surface* GetDisplay();
     
     //SDL_Surface* GetTileSheet(Tile::TILE_TYPE type);

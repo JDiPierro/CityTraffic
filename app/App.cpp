@@ -41,6 +41,15 @@ void Game::OnEvent(SDL_Event* event)
 {
     Event::OnEvent(event);
 }
+
+void Game::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
+{
+
+    if(sym == SDLK_SPACE)
+	currCity->MakeRoads();
+    
+}
+
 /*
 SDL_Surface* Game::GetDisplay()
 {

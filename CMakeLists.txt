@@ -22,6 +22,7 @@ set(SOURCES
 	
 	./world/Tile.cpp
 	./world/City.cpp
+	./world/Park.cpp
 	./world/RoadSegment.cpp
 )
 

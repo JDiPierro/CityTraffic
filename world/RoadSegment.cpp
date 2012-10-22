@@ -19,6 +19,7 @@ RoadSegment::~RoadSegment()
 
 void RoadSegment::InitRoad()
 {
+    connections = 0;
     //Test what connections we have.
     if(myCity->GetTile(X - 1,Y) != NULL && myCity->GetTile(X - 1,Y)->type == TT_ROAD)
     {
@@ -110,11 +111,16 @@ void RoadSegment::InitRoad()
 		tileY = 2;
 	    }
 	}
-	else
+	else if(connections & DOWN)
 	{
 	    //Right Down turn.
 	    tileX = 1;
 	    tileY = 1;
+	}
+	else
+	{
+	    tileX = 2;
+	    tileY = 3;
 	}
     }
     else
